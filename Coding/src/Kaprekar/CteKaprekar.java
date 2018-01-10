@@ -13,7 +13,7 @@ import java.util.Scanner;
  * <li>1121 - 5 Iteraciones</li>
  * <li>1893 - 7 Iteraciones</li>
  * </ol>
- * @author Raul Ordas
+ * @author Raul Ordas Fernandez
  *
  */
 public class CteKaprekar {
