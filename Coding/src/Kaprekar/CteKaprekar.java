@@ -26,7 +26,7 @@ public class CteKaprekar {
 		int a, b;
 		int numIteraciones = 0;
 		String input;
-
+		
 		input = solicitaNumero();
 		
 		//almacena el número input en dos arrays de tipo int[] (num y numDesc)
@@ -69,7 +69,8 @@ public class CteKaprekar {
 		}
 		return resultado;
 	}
-
+	
+	//método que convierte un String en Array númerico
 	private static void stringArray(int[] num, int[] numDesc, String input) {
 		for (int i = 0; i < input.length(); i++) {
 			num[i] = Character.getNumericValue(input.charAt(i));
@@ -78,16 +79,25 @@ public class CteKaprekar {
 	}
 	
 	private static String solicitaNumero() {
+		int numConv = 0;
 		String input = "";
 		Scanner sc = new Scanner(System.in);
+		boolean numFalso = false;
 		
 		do {
+			numFalso = false;
 			System.out.println("Introduce un número de 4 cifras");
-			input = sc.nextLine();
-			
-			if (input.length() > 4)
-				System.out.println("Rango de número Incorrecto");
-		}  while (input.length() > 4);
+			try {
+				numConv = Integer.parseInt(sc.nextLine());
+				input = input.valueOf(numConv);
+				if (input.length() > 4 || numConv < 0 || numConv > 9999) throw new KaprekarExceptions();
+			} catch (KaprekarExceptions exc) {
+				System.out.println(exc.getMessage());
+			} catch (NumberFormatException excNumber) {
+				System.out.println("No metas letras pillín");
+				numFalso = true;
+			}
+		}  while (input.length() > 4 || numFalso || numConv < 0 || numConv > 9999);
 		sc.close();
 		return input;
 	}
@@ -146,7 +156,7 @@ public class CteKaprekar {
 		 * no he encontrado ninguna opción en la clase arrays que lo haga automáticamente.
 		 */
 		int numAux;
-		for(int i = 0; i < num.length; i++) {
+		for(int i = 0; i < num.length -1; i++) {
 			for(int j = i+1; j < num.length; j++) {
 				if(num[i] < num[j]) {
 					numAux = num[i];
